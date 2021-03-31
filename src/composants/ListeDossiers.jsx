@@ -4,6 +4,7 @@ import Dossier from './Dossier';
 import { useEffect, useState } from 'react';
 import dbFirestore from '../data/firebase';
 
+<<<<<<< HEAD
 export default function ListeDossiers() {
   // État des dossiers de signets
   const [dossiers, setDossiers] = useState([]);
@@ -21,6 +22,16 @@ export default function ListeDossiers() {
           )
     , []
   );
+=======
+const firebaseConfig = {
+  apiKey: "AIzaSyAZK-S_nidq0I8AdTnT2_duj7GXE0txxCo",
+  authDomain: "iwra-react-f1315.firebaseapp.com",
+  projectId: "iwra-react-f1315",
+  storageBucket: "iwra-react-f1315.appspot.com",
+  messagingSenderId: "93876236827",
+  appId: "1:93876236827:web:71f57fb14579e0b4f0bebe"
+};
+>>>>>>> 68f49ac198bb822dd0a97282222a852cc05a5cc0
 
   return (
     <ul className="ListeDossiers">
