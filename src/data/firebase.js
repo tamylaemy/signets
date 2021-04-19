@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import firestore from 'firebase/firestore';
+import * as firebaseui from 'firebaseui';
 
 // objet de configuration
 const firebaseConfig = {
@@ -21,3 +22,6 @@ if(firebase.apps.length === 0) {
   
   // Exporter par défaut la référence à Firestore
   export default dbFirestore;
+
+  // Initialiser FirebaseUI
+  export const instanceFbUI = new firebaseui.auth.AuthUI(firebase.auth());
