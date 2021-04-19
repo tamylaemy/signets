@@ -1,4 +1,5 @@
 import './Accueil.scss';
+import firebase from 'firebase/app';
 
 export default function Accueil() {
   return (
