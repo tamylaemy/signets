@@ -3,6 +3,9 @@
 # Ignorer .eslintcache
 .eslintcache
 
+# Tout ce qui a trait à la config Firebase
+/src/services/config-secret.js
+
 # dependencies
 /node_modules
 /.pnp
@@ -24,3 +27,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+

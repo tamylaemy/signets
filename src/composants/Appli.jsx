@@ -6,14 +6,28 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase/app'; 
+import { instanceFirestore } from '../services/firebase-initialisation';
+import { instanceFirebaseAuth } from '../services/firebase-initialisation';
+import { collUtil } from '../services/config';
 
 export default function Appli() {
   const [utilisateur, setUtilisateur] = useState(null);
   
   useEffect(
     () => {
-      firebase.auth().onAuthStateChanged(
-        util => setUtilisateur(util)
+      instanceFirebaseAuth.onAuthStateChanged(
+        util => {
+          // Changer l'état de la variable 'utilisateur'
+          setUtilisateur(util);
+          // Si l'utilisateur vient de se loguer, créer son profil dans firestore
+          // Si c'est un nouvel utilisateur (ou rien faire s'il existe déjà)
+          if(util !== null){
+            instanceFirestore.collection(collUtil).doc(util.uid).set(
+              {nom: util.displayName, courriel: util.email},
+              {merge: true}
+            );
+          }
+        }
       )
     }
   , []);
