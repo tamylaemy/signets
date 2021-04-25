@@ -1,8 +1,7 @@
 import './Entete.scss';
 import { Avatar } from '@material-ui/core'; 
-import avatarImg from '../images/avatar.png';
 import Button from '@material-ui/core/Button';
-import firebase from 'firebase/app';
+import * as crudutilisateurs from '../services/crud-utilisateurs';
 
 export default function Entete(props) {
   const utilisateur = props.utilisateur;
@@ -16,7 +15,7 @@ export default function Entete(props) {
           variant="outlined"
           size="small"
           className="btnDeconnexion"
-          onClick={() => firebase.auth().signOut()}
+          onClick={() => crudutilisateurs.deconnexion()}
         >Déconnexion</Button>
       </div>
       <div className="utilisateur">{utilisateur.displayName} <Avatar className="avatar" alt={utilisateur.displayName} src={utilisateur.photoURL} /></div>

@@ -6,22 +6,30 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase/app'; 
-import { instanceFirestore } from '../services/firebase-initialisation';
-import { instanceFirebaseAuth } from '../services/firebase-initialisation';
+import { instanceFirestore, instanceFirebaseAuth } from '../services/firebase-initialisation';
 import { collUtil } from '../services/config';
+import FormDossier from './FormDossier';
 
 export default function Appli() {
+
+  // État de l'utilisateur
   const [utilisateur, setUtilisateur] = useState(null);
-  
+
+  // État des dossiers de signets
+  const [dossiers, setDossiers] = useState([]);
+
+  // État du formulaire de dossiers
+  const [ouvert, setOuvert] = useState(false);
+
   useEffect(
     () => {
       instanceFirebaseAuth.onAuthStateChanged(
         util => {
           // Changer l'état de la variable 'utilisateur'
           setUtilisateur(util);
-          // Si l'utilisateur vient de se loguer, créer son profil dans firestore
-          // Si c'est un nouvel utilisateur (ou rien faire s'il existe déjà)
-          if(util !== null){
+          // Si l'utilisteur vient de se loguer, créer son profil dans Firestore
+          // si c'est un nouvel utilisateur (ou rien faire s'il existe déjà)
+          if(util !== null) {
             instanceFirestore.collection(collUtil).doc(util.uid).set(
               {nom: util.displayName, courriel: util.email},
               {merge: true}
@@ -31,7 +39,6 @@ export default function Appli() {
       )
     }
   , []);
-
   return (
     <div className="Appli">
       {
@@ -39,14 +46,15 @@ export default function Appli() {
           <>
             <Entete utilisateur={utilisateur} />
             <section className="contenu-principal">
-              <ListeDossiers />
-              <Fab className="ajoutRessource" color="primary" aria-label="Ajouter dossier">
-                <AddIcon />
-              </Fab>
+              <ListeDossiers utilisateur={utilisateur} dossiers={dossiers} setDossiers={setDossiers} />
+              <FormDossier ouvert={ouvert} setOuvert={setOuvert} />
+              <Fab onClick={() => setOuvert(true)} className="ajoutRessource" color="primary" aria-label="Ajouter dossier">
+              <AddIcon />
+              </Fab>           
             </section>
           </>
-          :
-          < Accueil />
+        :
+          <Accueil />
       }
     </div>
   );
