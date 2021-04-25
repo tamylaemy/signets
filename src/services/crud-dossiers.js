@@ -21,6 +21,7 @@ export async function lireTout(uid) {
   
   }
   
-  export async function ajouter() {
-  
+  export async function creer(uid, dossier) {
+    dossier.modification = firebase.firestore.FieldValue.serverTimestamp();
+    return instanceFirestore.collection(collUtil).doc(uid).collection(collDossiers).add(dossier);
   }

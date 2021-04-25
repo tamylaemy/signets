@@ -9,6 +9,7 @@ import firebase from 'firebase/app';
 import { instanceFirestore, instanceFirebaseAuth } from '../services/firebase-initialisation';
 import { collUtil } from '../services/config';
 import FormDossier from './FormDossier';
+import * as crudDossiers from '../services/crud-dossiers';
 
 export default function Appli() {
 
@@ -20,6 +21,15 @@ export default function Appli() {
 
   // État du formulaire de dossiers
   const [ouvert, setOuvert] = useState(false);
+
+  function gererAjoutDossier(titre, couverture, couleur) {
+    //console.log(titre, '/', couverture, '/', couleur);
+    crudDossiers.creer(utilisateur.uid, {
+      titre: titre,
+      couverture: couverture,
+      couleur: couleur
+    }).then();
+  }
 
   useEffect(
     () => {
@@ -47,7 +57,7 @@ export default function Appli() {
             <Entete utilisateur={utilisateur} />
             <section className="contenu-principal">
               <ListeDossiers utilisateur={utilisateur} dossiers={dossiers} setDossiers={setDossiers} />
-              <FormDossier ouvert={ouvert} setOuvert={setOuvert} />
+              <FormDossier ouvert={ouvert} setOuvert={setOuvert} gererAjoutDossier={gererAjoutDossier} />
               <Fab onClick={() => setOuvert(true)} className="ajoutRessource" color="primary" aria-label="Ajouter dossier">
               <AddIcon />
               </Fab>           
