@@ -20,8 +20,20 @@ export async function lireTout(uid) {
   export async function modifier() {
   
   }
+
+  /**
+   * Crée un nouveau dossier pour l'utilisateur connecté et retourne les données
+   * de ce dossier (4 propriétées dans un objet js)
+   * @param {string} uid Identifiant Firebase Auth de l'utilisateur connecté
+   * @param {Object} dossier objet JS à ajouter comme document dans la collection
+   * dossier de l'utilisateur
+   * @returns {Promise<Object>}
+   */
   
   export async function creer(uid, dossier) {
     dossier.modification = firebase.firestore.FieldValue.serverTimestamp();
-    return instanceFirestore.collection(collUtil).doc(uid).collection(collDossiers).add(dossier);
-  }
+    return instanceFirestore.collection(collUtil).doc(uid).collection(collDossiers)
+    .add(dossier).then(
+      refDoc => refDoc.get()
+    )
+}

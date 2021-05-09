@@ -15,13 +15,21 @@ export default function FormDossier({ouvert, setOuvert, gererAjoutDossier}) {
   const [couleur, setCouleur] = useState('#f00');
   const gererFermer = () => {
     setOuvert(false);
+    //Réinitialiser les états
+    reinitialiserEtats();
   };
 
-  function gererEnvoiFormulaire() {
-    // 2) Appeler une fonction qui permet d'intégrer le backend (firebase)
-    gererAjoutDossier(titre, couverture, couleur)
+  function reinitialiserEtats() {
+    setTitre('');
+    setCouverture('');
+    setCouleur('#f00');
+  }
 
-    // 3) Fermer la boîte de dialogue
+  function gererEnvoiFormulaire() {
+    // 1) Appeler une fonction qui permet d'intégrer le backend (firebase)
+    gererAjoutDossier(titre, couverture, couleur);
+
+    // 2) Fermer la boîte de dialogue
     gererFermer();
   }
 

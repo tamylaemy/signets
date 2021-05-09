@@ -28,7 +28,10 @@ export default function Appli() {
       titre: titre,
       couverture: couverture,
       couleur: couleur
-    }).then();
+    }).then(
+      docDossier => setDossiers([...dossiers, {id: docDossier.id, ...docDossier.data()}])
+    );
+    
   }
 
   useEffect(

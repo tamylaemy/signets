@@ -2,6 +2,7 @@ import './Dossier.scss';
 import { IconButton } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import couvertureDefaut from '../images/couverture-defaut.jpg';
 
 export default function Dossier({titre, couleur, modification, couverture}) {
   return (
@@ -10,7 +11,7 @@ export default function Dossier({titre, couleur, modification, couverture}) {
         <IconButton className="deplacer" aria-label="déplacer" disableRipple={true}>
           <SortIcon />
         </IconButton>
-        <img src={couverture} alt={titre}/>
+        <img src={couverture || couvertureDefaut} alt={titre}/>
       </div>
       <div className="info">
         <h2>{titre}</h2>
