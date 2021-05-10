@@ -4,8 +4,12 @@ import {collUtil, collDossiers} from './config';
 
 export async function lireTout(uid) {
     let dossiers = [];
-    return instanceFirestore.collection(collUtil).doc(uid).collection(collDossiers).get().then(
-        reponse => {
+    return instanceFirestore.collection(collUtil).doc(uid).collection(collDossiers)
+                            .orderBy('modification', 'desc')
+                            //.orderBy('titre')
+                            .get()
+                            .then(
+                              reponse => {
             reponse.forEach(doc => dossiers.push({...doc.data(), id: doc.id}));
         }
     ).then(
